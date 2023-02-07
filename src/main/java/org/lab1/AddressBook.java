@@ -73,7 +73,7 @@ public class AddressBook{
         }
     }
 
-    public void removeAll(){
+    public void voidBuddies(){
         for(BuddyInfo b : buddies){
             buddies.remove(b);
         }
@@ -89,9 +89,9 @@ public class AddressBook{
 
     @Override
     public String toString(){
-        String bookString = "[    Address Book " + id + "    ]";
+        StringBuilder bookString = new StringBuilder("[    Address Book " + id + "    ]");
         for(BuddyInfo bud : buddies){
-            bookString += "\n|----------------------|\n" + bud.toString();
+            bookString.append("\n|----------------------|\n").append(bud.toString());
         }
         return bookString + "\n|-----End of Book------|\n";
     }

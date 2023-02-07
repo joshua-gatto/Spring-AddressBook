@@ -1,6 +1,6 @@
 package org.lab1;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * The Controller class is a RESTful web service class used to handle incoming HTTP requests. It handles the functionality
@@ -20,14 +20,12 @@ public class Controller {
      */
     @Autowired
     public Controller(BuddyInfoRepository buddyInfoRepository, AddressBookRepository addressBookRepository){
-        this.buddyInfoRepository = buddyInfoRepository;
-        this.addressBookRepository = addressBookRepository;
+        Controller.buddyInfoRepository = buddyInfoRepository;
+        Controller.addressBookRepository = addressBookRepository;
     }
 
-    /**
-     * BuddyInfo Controller
-     *      Constructor
-     */
+    //BuddyInfo Controller
+        //Constructor
 
     /**
      * Main constructor for BuddyInfo. The id attribute is automatically generated and assigned.
@@ -39,9 +37,8 @@ public class Controller {
     public BuddyInfo createBuddyInfo(@PathVariable String phoneNo, @PathVariable("name") String name){
         return buddyInfoRepository.save(new BuddyInfo(name, phoneNo));
     }
-    /**
-     *      Getters
-     */
+
+        //Getters
 
     /**
      * Retrieves the list of all BuddyInfos in the repository.
@@ -109,7 +106,7 @@ public class Controller {
      * Adds a BuddyInfo to an AddressBook.
      * @param addressBookId Identification number of the AddressBook
      * @param buddyId Identification number of the BuddyInfo
-     * @param buddy
+     * @param buddy BuddyInfo to Add to AddressBook
      */
     @PutMapping("addressBooks/{addressBookId}/addBuddy/{buddyId}")
     public void addBuddyToBook(@PathVariable Long addressBookId, @PathVariable Long buddyId, BuddyInfo buddy){
