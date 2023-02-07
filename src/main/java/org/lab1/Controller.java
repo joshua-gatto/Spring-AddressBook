@@ -172,6 +172,27 @@ public class Controller {
         return (AddressBook[]) addressBooksWithBuddyName.toArray();
     }
 
+    @GetMapping("getAddresBooks/BuddyInfo/PhoneNo/{phoneNo}")
+    public AddressBook[] getAddressBooksByBuddyInfoPhoneNo(@PathVariable String phoneNo){
+        Iterable<BuddyInfo> buddies = getBuddies();
+        ArrayList<BuddyInfo> buddiesWithPhoneNo = new ArrayList<>();
+        for(BuddyInfo b : buddies){
+            if(b.getPhoneNo() == phoneNo){
+                buddiesWithPhoneNo.add(b);
+            }
+        }
+        ArrayList<AddressBook> addressBooksWithBuddyPhoneNo = new ArrayList<>();
+        Iterable<AddressBook> addressBooksInRepo = addressBookRepository.findAll();
+        for(AddressBook addressBook : addressBooksInRepo){
+            for(BuddyInfo b : buddiesWithPhoneNo){
+                if(addressBook.containsBuddy(b)){
+                    addressBooksWithBuddyPhoneNo.add(addressBook);
+                }
+            }
+        }
+        return (AddressBook[]) addressBooksWithBuddyPhoneNo.toArray();
+    }
+
         //Buddy Maintenance Methods
 
     /**
