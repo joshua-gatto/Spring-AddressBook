@@ -2,6 +2,8 @@ package org.lab1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 /**
  * The Controller class is a RESTful web service class used to handle incoming HTTP requests. It handles the functionality
  * of creating and modifying BuddyInfo and AddressBook objects.
@@ -33,7 +35,7 @@ public class Controller {
      * @param name Buddy's name
      * @return new BuddyInfo object
      */
-    @PostMapping("createBud/name={name}-phoneNo={phoneNo}")
+    @PostMapping("createBuddyInfo/name={name}-phoneNo={phoneNo}")
     public BuddyInfo createBuddyInfo(@PathVariable String phoneNo, @PathVariable("name") String name){
         return buddyInfoRepository.save(new BuddyInfo(name, phoneNo));
     }
@@ -122,6 +124,34 @@ public class Controller {
 
     //AddressBook Controller
         //Constructor
+    @PostMapping("createAddressBook")
+    public Long createAddressBook(){
+        AddressBook newBook = new AddressBook();
+        addressBookRepository.save(newBook);
+        return newBook.getId();
+    }
+
+        //Getter
+
+    @GetMapping("getAddressBook/id/{id}")
+    public AddressBook getAddressBookById(@PathVariable Long id){
+        return addressBookRepository.findById(id).orElse(null);
+    }
+
+    @GetMapping("getAddressBook/BuddyInfo/{id}")
+    public AddressBook[] getAddressBookByBuddyInfo(@PathVariable Long id){
+        BuddyInfo buddy = getBuddyInfo(id);
+        ArrayList<AddressBook> booksWithBuddy = new ArrayList<AddressBook>();
+        Iterable<AddressBook> addressbooksInRepo = addressBookRepository.findAll();
+        for(AddressBook selectedBook : addressbooksInRepo){
+            if(selectedBook.containsBuddy(buddy)){
+                booksWithBuddy.add(selectedBook);
+            }
+        }
+        return (AddressBook[]) booksWithBuddy.toArray();
+    }
+        //Buddy Maintenance Methods
+
     /**
      * Adds a BuddyInfo to an AddressBook.
      * @param addressBookId Identification number of the AddressBook
@@ -139,6 +169,6 @@ public class Controller {
      */
     @DeleteMapping("delBud/{id}")
     public void removeBuddyInfo(@PathVariable Long id){
-        buddyInfoRepository.deleteById(id);
+
     }
 }
