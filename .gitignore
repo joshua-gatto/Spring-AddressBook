@@ -15,6 +15,7 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
+### Does not seem to work###
 !.idea/httpRequests
 *.iws
 *.iml
