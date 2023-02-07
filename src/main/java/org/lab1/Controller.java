@@ -29,7 +29,7 @@ public class Controller {
      * @return new BuddyInfo object
      */
     @PostMapping("createBud/name={name}-phoneNo={phoneNo}")
-    public BuddyInfo createBuddyInfo(@PathVariable String phoneNo, @RequestParam("name") String name){
+    public BuddyInfo createBuddyInfo(@PathVariable String phoneNo, @PathVariable("name") String name){
         return buddyInfoRepository.save(new BuddyInfo(name, phoneNo));
     }
 
@@ -38,27 +38,39 @@ public class Controller {
      * @param id Identification number that the BuddyInfo can be referenced by
      * @param buddy The BuddyInfo to apply the reassignment to
      */
-    @PutMapping("newBuddy/{id}")
-    public void addBuddyInfo(@PathVariable Long id, @RequestBody BuddyInfo buddy){
+    @PutMapping("setId/{buddy}/{id}")
+    public BuddyInfo addBuddyInfo(@PathVariable Long id, @RequestBody BuddyInfo buddy){
         buddy.setId(id);
+        return buddyInfoRepository.save(buddy);
     }
 
-
-    @DeleteMapping("delBud/{id}")
-    public void removeBuddyInfo(@PathVariable Long id){
-        buddyInfoRepository.deleteById(id);
-    }
-
-    @PutMapping("addressBooks/{addressBookId}/addBuddy/{buddyId}")
-    public void addBuddyToBook(@PathVariable Long addressBookId, @PathVariable Long buddyId, BuddyInfo buddy){
-
-        buddyInfoRepository.save(buddy);
-    }
-
+    //AddressBook Controller
+    /**
+     * Retrieves the list of BuddyInfos in the AddressBook.
+     * @return Iterable BuddyInfo collection
+     */
     @GetMapping("buddies")
     public Iterable<BuddyInfo> getBuddies(){
         return buddyInfoRepository.findAll();
     }
 
-    //AddressBook Controller
+    /**
+     * Adds a BuddyInfo to an AddressBook.
+     * @param addressBookId Identification number of the AddressBook
+     * @param buddyId Identification number of the BuddyInfo
+     * @param buddy
+     */
+    @PutMapping("addressBooks/{addressBookId}/addBuddy/{buddyId}")
+    public void addBuddyToBook(@PathVariable Long addressBookId, @PathVariable Long buddyId, BuddyInfo buddy){
+        buddyInfoRepository.save(buddy);
+    }
+
+    /**
+     * Removes a BuddyInfo from an AddressBook.
+     * @param id Identification number of the BuddyInfo
+     */
+    @DeleteMapping("delBud/{id}")
+    public void removeBuddyInfo(@PathVariable Long id){
+        buddyInfoRepository.deleteById(id);
+    }
 }
