@@ -59,10 +59,17 @@ public class Controller {
         return buddyInfoRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Retrieves all BuddyInfos with the specified name.
+     * @param name name of the desired BuddyInfo
+     * @return an array of BuddyInfos with the specified name
+     */
     @GetMapping("getBuddy/name/{name}")
     public BuddyInfo[] getBuddyInfo(@PathVariable String name){
         return buddyInfoRepository.findAllByName(name);
     }
+
+        //Setters
 
     /**
      * Reassigns a BuddyInfo an id. Any AddressBooks that contain the specified BuddyInfo will have it removed before
@@ -99,9 +106,22 @@ public class Controller {
         }
     }
 
+    @PutMapping("setName/{id}/{name}")
+    public BuddyInfo setName(@PathVariable Long id, @PathVariable String name){
+        BuddyInfo buddy = buddyInfoRepository.findById(id).get();
+        buddy.setName(name);
+        return buddyInfoRepository.save(buddy);
+    }
 
+    @PutMapping("setPhoneNo/{id}/{phoneNo}")
+    public BuddyInfo setPhoneNo(@PathVariable Long id, @PathVariable String phoneNo){
+        BuddyInfo buddy = buddyInfoRepository.findById(id).get();
+        buddy.setPhoneNo(phoneNo);
+        return buddyInfoRepository.save(buddy);
+    }
 
     //AddressBook Controller
+        //Constructor
     /**
      * Adds a BuddyInfo to an AddressBook.
      * @param addressBookId Identification number of the AddressBook
