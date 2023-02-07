@@ -138,10 +138,10 @@ public class Controller {
         return addressBookRepository.findById(id).orElse(null);
     }
 
-    @GetMapping("getAddressBook/BuddyInfo/{id}")
-    public AddressBook[] getAddressBookByBuddyInfo(@PathVariable Long id){
+    @GetMapping("getAddressBooks/BuddyInfo/Id/{id}")
+    public AddressBook[] getAddressBookByBuddyInfoId(@PathVariable Long id){
         BuddyInfo buddy = getBuddyInfo(id);
-        ArrayList<AddressBook> booksWithBuddy = new ArrayList<AddressBook>();
+        ArrayList<AddressBook> booksWithBuddy = new ArrayList<>();
         Iterable<AddressBook> addressbooksInRepo = addressBookRepository.findAll();
         for(AddressBook selectedBook : addressbooksInRepo){
             if(selectedBook.containsBuddy(buddy)){
@@ -150,6 +150,28 @@ public class Controller {
         }
         return (AddressBook[]) booksWithBuddy.toArray();
     }
+
+    @GetMapping("getAddressBooks/BuddyInfo/Name/{name}")
+    public AddressBook[] getAddressBooksByBuddyInfoName(@PathVariable String name){
+        Iterable<BuddyInfo> buddies = getBuddies();
+        ArrayList<BuddyInfo> buddiesWithName = new ArrayList<>();
+        for(BuddyInfo b : buddies){
+            if(b.getName() == name){
+                buddiesWithName.add(b);
+            }
+        }
+        ArrayList<AddressBook> addressBooksWithBuddyName = new ArrayList<>();
+        Iterable<AddressBook> addressBooksInRepo = addressBookRepository.findAll();
+        for(AddressBook addressBook : addressBooksInRepo){
+            for(BuddyInfo b : buddiesWithName){
+                if(addressBook.containsBuddy(b)){
+                    addressBooksWithBuddyName.add(addressBook);
+                }
+            }
+        }
+        return (AddressBook[]) addressBooksWithBuddyName.toArray();
+    }
+
         //Buddy Maintenance Methods
 
     /**
