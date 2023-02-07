@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;;
 
 /**
  * The Controller class is a RESTful web service class used to handle incoming HTTP requests. It handles the functionality
- * of creating and modifying BuddyInfo objects and AddressBook objects.
+ * of creating and modifying BuddyInfo and AddressBook objects.
  * @Author Joshua Gatto
  */
 @RestController
@@ -24,8 +24,11 @@ public class Controller {
         this.addressBookRepository = addressBookRepository;
     }
 
-    //BuddyInfo Controller
-        //Constructor
+    /**
+     * BuddyInfo Controller
+     *      Constructor
+     */
+
     /**
      * Main constructor for BuddyInfo. The id attribute is automatically generated and assigned.
      * @param phoneNo Buddy's phone number
@@ -36,16 +39,9 @@ public class Controller {
     public BuddyInfo createBuddyInfo(@PathVariable String phoneNo, @PathVariable("name") String name){
         return buddyInfoRepository.save(new BuddyInfo(name, phoneNo));
     }
-
     /**
-     * Retrieve a BuddyInfo by identification number from the repository
-     * @param id identification number of the desired BuddyInfo
-     * @return
+     *      Getters
      */
-    @GetMapping("getBuddy/{id}")
-    public BuddyInfo getBuddyInfo(@PathVariable Long id){
-        return buddyInfoRepository.findById(id).orElse(null);
-    }
 
     /**
      * Retrieves the list of all BuddyInfos in the repository.
@@ -54,6 +50,21 @@ public class Controller {
     @GetMapping("buddies")
     public Iterable<BuddyInfo> getBuddies(){
         return buddyInfoRepository.findAll();
+    }
+
+    /**
+     * Retrieve a BuddyInfo by identification number from the repository
+     * @param id identification number of the desired BuddyInfo
+     * @return BuddyInfo of specified id number, null if no BuddyInfo is assigned the specified id
+     */
+    @GetMapping("getBuddy/id/{id}")
+    public BuddyInfo getBuddyInfo(@PathVariable Long id){
+        return buddyInfoRepository.findById(id).orElse(null);
+    }
+
+    @GetMapping("getBuddy/name/{name}")
+    public BuddyInfo[] getBuddyInfo(@PathVariable String name){
+        return buddyInfoRepository.findAllByName(name);
     }
 
     /**
@@ -90,6 +101,8 @@ public class Controller {
             return null;
         }
     }
+
+
 
     //AddressBook Controller
     /**
