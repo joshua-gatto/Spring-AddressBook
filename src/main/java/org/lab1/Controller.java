@@ -59,6 +59,8 @@ public class Controller {
     /**
      * Reassigns a BuddyInfo an id. Any AddressBooks that contain the specified BuddyInfo will have it removed before
      * it is updated and added again. The id attribute has already been set when the BuddyInfo object was initialized.
+     * Returns null if no BuddyInfo of specified oldId exists. NOTE: You should not set the id, especially to a value
+     * that is already in use.
      * @param oldId The BuddyInfo to change the id of
      * @param newId The new identification number of the BuddyInfo
      */
