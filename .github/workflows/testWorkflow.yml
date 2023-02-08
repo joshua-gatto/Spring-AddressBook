@@ -15,5 +15,6 @@ jobs:
         with:
           java-version: 17
           distribution: oracle
-      - name: Run tests
-        run: npm test
+      - name: tests
+          - run: npm ci
+          - run: npm test
