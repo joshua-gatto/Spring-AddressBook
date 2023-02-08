@@ -17,5 +17,5 @@ jobs:
           distribution: oracle
       - name: Run tests
         run: |
-          cd 
-          mvn test -D -X test=WebRequestTest echo output.txt
+          cd /pom.xml
+          mvn test -D test=WebRequestTest echo output.txt
