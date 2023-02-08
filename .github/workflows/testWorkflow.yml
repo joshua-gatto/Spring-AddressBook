@@ -15,5 +15,12 @@ jobs:
         with:
           java-version: 17
           distribution: oracle
+      - name: Build maven project
+        run: mvn -B package ---file pom.xml
+
       - name: Run tests
-      - run: mpn test
+        run: |
+          cd src/test/java/org.lab1
+          javac WebRequestTest.java
+
+          
