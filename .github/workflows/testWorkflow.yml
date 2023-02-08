@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2.x
+        uses: actions/checkout@v2
 
       - name: Set up Java
         uses: actions/setup-java@v2
