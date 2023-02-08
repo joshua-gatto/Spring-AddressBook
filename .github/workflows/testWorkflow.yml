@@ -1,27 +1,21 @@
-name: Java CI
+name: Run Tests
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push]
 
 jobs:
   build:
-
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK
+      - name: Set up Java
         uses: actions/setup-java@v1
         with:
           java-version: 18
 
-      - name: Build with Maven
-        run: mvn clean install
-
       - name: Run tests
-        run: mvn test
+        run: |
+          cd src/test/java/org/lab1
+          ./gradlew test --tests WebRequestTest
