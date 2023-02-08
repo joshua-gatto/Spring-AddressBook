@@ -17,6 +17,6 @@ jobs:
           distribution: oracle
       - name: Run tests
         run: |
-          pwd
           cd 
+          pwd
           mvn test -D test=WebRequestTest echo output.txt
