@@ -26,6 +26,8 @@ public class WebRequestTest {
 
     @Test
     public void addBuddyTest(){
-
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/createBuddyInfo/name=John-phoneNo=613-992-2004", String.class)).contains("John");
     }
+
+
 }
