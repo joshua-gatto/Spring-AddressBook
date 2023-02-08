@@ -17,5 +17,5 @@ jobs:
           distribution: oracle
       - name: Run tests
         run: |
-          cd src/test/java/org/lab1
+          cd pom.xml
           mvn test -Dtest=WebRequestTest echo output.txt
