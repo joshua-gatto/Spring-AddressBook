@@ -16,7 +16,4 @@ jobs:
           java-version: 17
           distribution: oracle
       - name: Run tests
-        run: |
-          cd /home/runner/pom.xml
-          ls
-          mvn -f ./ test -D test=WebRequestTest echo output.txt
+        run: npm test
