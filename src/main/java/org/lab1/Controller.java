@@ -30,7 +30,7 @@ public class Controller {
         //Constructor
 
     /**
-     * Main constructor for BuddyInfo. The id attribute is automatically generated and assigned.
+     * Primary constructor for BuddyInfo. The id attribute is automatically generated and assigned.
      * @param phoneNo Buddy's phone number
      * @param name Buddy's name
      * @return new BuddyInfo object
@@ -108,6 +108,12 @@ public class Controller {
         }
     }
 
+    /**
+     * Sets the name of a BuddyInfo.
+     * @param id Identification number of the BuddyInfo's name to be changed
+     * @param name The BuddyInfo's new name
+     * @return The BuddyInfo whose name was set
+     */
     @PutMapping("setName/{id}/{name}")
     public BuddyInfo setName(@PathVariable Long id, @PathVariable String name){
         BuddyInfo buddy = buddyInfoRepository.findById(id).get();
@@ -115,6 +121,12 @@ public class Controller {
         return buddyInfoRepository.save(buddy);
     }
 
+    /**
+     * Sets the phone number of a BuddyInfo.
+     * @param id Identification number of hte BuddyInfo's phone number to be changed
+     * @param phoneNo The BuddyInfo's new phone number
+     * @return The BuddyInfo whose phone number was set
+     */
     @PutMapping("setPhoneNo/{id}/{phoneNo}")
     public BuddyInfo setPhoneNo(@PathVariable Long id, @PathVariable String phoneNo){
         BuddyInfo buddy = buddyInfoRepository.findById(id).get();
@@ -122,8 +134,13 @@ public class Controller {
         return buddyInfoRepository.save(buddy);
     }
 
+
     //AddressBook Controller
         //Constructor
+    /**
+     * Primary constructor for an AddressBook. id attribute is automatically generated and assigned.
+     * @return new AddressBook object
+     */
     @PostMapping("createAddressBook")
     public Long createAddressBook(){
         AddressBook newBook = new AddressBook();
@@ -131,13 +148,23 @@ public class Controller {
         return newBook.getId();
     }
 
-        //Getter
+        //Getters
 
+    /**
+     * Retrieves the AddressBook of a specified Identification number.
+     * @param id identification number of desired AddressBook
+     * @return AddressBook of specified identification number
+     */
     @GetMapping("getAddressBook/id/{id}")
     public AddressBook getAddressBookById(@PathVariable Long id){
         return addressBookRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Retrieves all the AddressBooks containing a specific BuddyInfo.
+     * @param id identification number of the BuddyInfo to search for
+     * @return array of AddressBooks containing BuddyInfo with specified id
+     */
     @GetMapping("getAddressBooks/BuddyInfo/Id/{id}")
     public AddressBook[] getAddressBookByBuddyInfoId(@PathVariable Long id){
         BuddyInfo buddy = getBuddyInfo(id);
@@ -151,6 +178,11 @@ public class Controller {
         return (AddressBook[]) booksWithBuddy.toArray();
     }
 
+    /**
+     * Retrieves all the AddressBooks containing BuddyInfos with a specified name.
+     * @param name name of the BuddyInfo to search for
+     * @return array of AddressBooks containing any BuddyInfo with specified name
+     */
     @GetMapping("getAddressBooks/BuddyInfo/Name/{name}")
     public AddressBook[] getAddressBooksByBuddyInfoName(@PathVariable String name){
         Iterable<BuddyInfo> buddies = getBuddies();
@@ -172,6 +204,11 @@ public class Controller {
         return (AddressBook[]) addressBooksWithBuddyName.toArray();
     }
 
+    /**
+     * Retrieves all the AddressBooks containing with a specified phone number.
+     * @param phoneNo phone number of the BuddyInfo to search for
+     * @return array of AddressBooks containing any BuddyInfo with specified phone number
+     */
     @GetMapping("getAddresBooks/BuddyInfo/PhoneNo/{phoneNo}")
     public AddressBook[] getAddressBooksByBuddyInfoPhoneNo(@PathVariable String phoneNo){
         Iterable<BuddyInfo> buddies = getBuddies();
@@ -193,7 +230,7 @@ public class Controller {
         return (AddressBook[]) addressBooksWithBuddyPhoneNo.toArray();
     }
 
-        //Buddy Maintenance Methods
+        //Setters
 
     /**
      * Adds a BuddyInfo to an AddressBook.
