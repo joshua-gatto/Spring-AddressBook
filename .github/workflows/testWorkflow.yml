@@ -13,8 +13,8 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
-          java-version: 18
-          distribution: microsoft
+          java-version: 17
+          distribution: oracle
       - name: Run tests
         run: |
           cd src/test/java/org/lab1
