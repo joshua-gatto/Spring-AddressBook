@@ -18,4 +18,4 @@ jobs:
       - name: Run tests
         run: |
           cd 
-          mvn test -Dtest=WebRequestTest echo output.txt
+          mvn test -D -X test=WebRequestTest echo output.txt
