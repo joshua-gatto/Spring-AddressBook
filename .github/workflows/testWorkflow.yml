@@ -19,4 +19,4 @@ jobs:
         run: |
           cd src/test/java/org/lab1/WebRequestTest.java
           pwd
-          mvn test -D test=WebRequestTest echo output.txt
+          mvn -f ./ test -D test=WebRequestTest echo output.txt
