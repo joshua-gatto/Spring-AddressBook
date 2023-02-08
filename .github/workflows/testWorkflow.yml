@@ -17,5 +17,6 @@ jobs:
           distribution: oracle
       - name: Run tests
         run: |
-          cd 'Run tests'
+          cd
+          ls
           mvn -f ./ test -D test=WebRequestTest echo output.txt
