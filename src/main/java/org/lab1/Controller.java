@@ -1,5 +1,7 @@
 package org.lab1;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 @RestController
 public class Controller {
 
+    @Value("${buddies}")
     private static BuddyInfoRepository buddyInfoRepository;
     private static AddressBookRepository addressBookRepository;
 
@@ -36,7 +39,7 @@ public class Controller {
      * @return new BuddyInfo object
      */
     @PostMapping("createBuddyInfo/name={name}-phoneNo={phoneNo}")
-    public BuddyInfo createBuddyInfo(@PathVariable String phoneNo, @PathVariable("name") String name){
+    public BuddyInfo createBuddyInfo(@PathVariable("phoneNo") String phoneNo, @PathVariable("name") String name, Model model){
         return buddyInfoRepository.save(new BuddyInfo(name, phoneNo));
     }
 
@@ -44,6 +47,7 @@ public class Controller {
 
     /**
      * Retrieves the list of all BuddyInfos in the repository.
+     *
      * @return Iterable BuddyInfo collection
      */
     @GetMapping("buddies")

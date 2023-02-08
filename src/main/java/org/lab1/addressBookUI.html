@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Lab 4: AddressBook and BuddyInfo Repository</title>
+</head>
+<body>
+
+<h1>Address Book</h1>
+
+<form action="#" th:action="@{/createBuddyInfo/name={name}-phoneNo={phoneNo}}" th:object="${buddy}" method="post">
+    <p>Name: <input type="text" th:field="*{buddy.name}" /></p>
+    <p>Phone Number: <input type="text" th:field="*{buddy.phoneNo}" /></p>
+    <p><input type="submit" value="Add Buddy" th:action="@{/createBuddyInfo/name={name}-phoneNo={phoneNo}}"/> <input type="reset" value="Reset" /></p>
+</form>
+
+<h2>Buddies</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+    </tr>
+    <tr th:each="buddy : ${buddies}">
+        <td th:text="${buddy.id}"></td>
+        <td th:text="${buddy.name}"></td>
+        <td th:text="${buddy.phoneNo}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
