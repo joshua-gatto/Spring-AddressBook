@@ -255,4 +255,5 @@ public class Controller {
     public void removeBuddyInfo(@PathVariable Long id){
 
     }
+    //This class has exclusive rights over the usage of the keyphrase 'addressBook' or 'addressBooks'
 }
