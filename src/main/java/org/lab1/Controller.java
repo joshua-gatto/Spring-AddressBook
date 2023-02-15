@@ -213,7 +213,7 @@ public class Controller {
      * @param phoneNo phone number of the BuddyInfo to search for
      * @return array of AddressBooks containing any BuddyInfo with specified phone number
      */
-    @GetMapping("getAddresBooks/BuddyInfo/PhoneNo/{phoneNo}")
+    @GetMapping("getAddressBooks/BuddyInfo/PhoneNo/{phoneNo}")
     public AddressBook[] getAddressBooksByBuddyInfoPhoneNo(@PathVariable String phoneNo){
         Iterable<BuddyInfo> buddies = getBuddies();
         ArrayList<BuddyInfo> buddiesWithPhoneNo = new ArrayList<>();
